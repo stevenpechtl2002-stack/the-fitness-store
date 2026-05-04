@@ -44,21 +44,13 @@ export default function Hero() {
       >
         <img
           src="/img-01.jpeg"
-          alt="Fitness"
-          className="w-full h-full object-cover object-top"
+          alt="The Fitness Store"
+          className="w-full h-full object-cover object-center"
         />
         {/* Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/80 to-[#080808]/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/75 to-[#080808]/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-[#080808]/40" />
       </motion.div>
-
-      {/* Red accent stripe */}
-      <motion.div
-        initial={{ scaleY: 0, originY: 1 }}
-        animate={{ scaleY: 1 }}
-        transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute left-[52%] top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-[#e63946] to-transparent opacity-40 hidden lg:block"
-      />
 
       {/* Content */}
       <motion.div

@@ -38,12 +38,11 @@ export default function Navbar() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             whileHover={{ scale: 1.02 }}
           >
-            <div className="w-8 h-8 bg-[#e63946] flex items-center justify-center">
-              <span className="font-display text-white text-lg leading-none">T</span>
-            </div>
-            <span className="font-display text-white text-xl lg:text-2xl tracking-widest uppercase">
-              The Fitness Store
-            </span>
+            <img
+              src="/logo.jpg"
+              alt="The Fitness Store"
+              className="h-10 lg:h-12 w-auto object-contain"
+            />
           </motion.div>
 
           {/* Desktop Links */}

@@ -15,13 +15,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
             {/* Logo */}
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-[#e63946] flex items-center justify-center flex-shrink-0">
-                <span className="font-display text-white text-lg leading-none">T</span>
-              </div>
-              <span className="font-display text-white text-xl tracking-widest uppercase">
-                The Fitness Store
-              </span>
+            <div className="mb-6">
+              <img src="/logo.jpg" alt="The Fitness Store" className="h-14 w-auto object-contain" />
             </div>
 
             <p className="font-body text-white/35 text-sm leading-relaxed mb-8 max-w-xs">
