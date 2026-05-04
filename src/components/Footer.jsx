@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 const SHOP_URL = 'https://www.fitnessstore-24.de'
 
@@ -11,29 +12,66 @@ const footerLinks = {
 const shopCategories = new Set(['Supplements', 'Equipment', 'Kleidung', 'Zubehör', 'Sale'])
 
 export default function Footer() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+
   return (
     <footer className="bg-[#050505] border-t border-white/5">
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
+      <div ref={ref} className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Brand */}
           <div className="col-span-2 lg:col-span-2">
-            {/* Logo */}
-            <div className="mb-6">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-6"
+            >
               <img src="/logo.png" alt="The Fitness Store" className="h-14 w-auto object-contain" />
-            </div>
+            </motion.div>
 
-            <p className="font-body text-white/35 text-sm leading-relaxed mb-5 max-w-xs">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="font-body text-white/35 text-sm leading-relaxed mb-5 max-w-xs"
+            >
               Premium Fitness Equipment, Supplements und Kleidung. Dein Partner für maximale Performance seit 2018.
-            </p>
-            <div className="space-y-2 mb-8">
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-2 mb-8"
+            >
               <p className="font-body text-white/25 text-xs tracking-wide">Bleichstraße 12 · 75173 Pforzheim</p>
-              <a href="tel:+4972318004071" className="block font-body text-white/25 hover:text-[#e63946] text-xs tracking-wide transition-colors duration-300">(07231) 800 40 71</a>
-              <a href="mailto:pforzheim@the-fitness-store.net" className="block font-body text-white/25 hover:text-[#e63946] text-xs tracking-wide transition-colors duration-300">pforzheim@the-fitness-store.net</a>
-            </div>
+              <motion.a
+                href="tel:+4972318004071"
+                whileHover={{ x: 4, color: '#e63946' }}
+                transition={{ type: 'spring', stiffness: 400 }}
+                className="block font-body text-white/25 text-xs tracking-wide"
+              >
+                (07231) 800 40 71
+              </motion.a>
+              <motion.a
+                href="mailto:pforzheim@the-fitness-store.net"
+                whileHover={{ x: 4, color: '#e63946' }}
+                transition={{ type: 'spring', stiffness: 400 }}
+                className="block font-body text-white/25 text-xs tracking-wide"
+              >
+                pforzheim@the-fitness-store.net
+              </motion.a>
+            </motion.div>
 
             {/* Social Links */}
-            <div className="flex items-center gap-3">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-center gap-3"
+            >
               {/* Instagram */}
               <motion.a
                 href="https://instagram.com/thefitnessstore"
@@ -66,27 +104,43 @@ export default function Footer() {
                   <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
                 </svg>
               </motion.a>
-            </div>
+            </motion.div>
           </div>
 
           {/* Links */}
-          {Object.entries(footerLinks).map(([title, links]) => (
+          {Object.entries(footerLinks).map(([title, links], colIndex) => (
             <div key={title}>
-              <h4 className="font-display text-white text-base tracking-widest uppercase mb-5">
+              <motion.h4
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: 0.2 + colIndex * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="font-display text-white text-base tracking-widest uppercase mb-5"
+              >
                 {title}
-              </h4>
+              </motion.h4>
               <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a
+                {links.map((link, linkIndex) => (
+                  <motion.li
+                    key={link}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.3 + colIndex * 0.08 + linkIndex * 0.06,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    <motion.a
                       href={shopCategories.has(link) ? SHOP_URL : '#'}
                       target={shopCategories.has(link) ? '_blank' : undefined}
                       rel={shopCategories.has(link) ? 'noopener noreferrer' : undefined}
-                      className="font-body text-white/35 text-sm hover:text-white transition-colors duration-300 tracking-wide"
+                      whileHover={{ x: 5, color: '#ffffff' }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                      className="font-body text-white/35 text-sm tracking-wide inline-block"
                     >
                       {link}
-                    </a>
-                  </li>
+                    </motion.a>
+                  </motion.li>
                 ))}
               </ul>
             </div>
@@ -98,30 +152,45 @@ export default function Footer() {
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-6">
-            <a
+            <motion.a
               href="mailto:pforzheim@the-fitness-store.net"
-              className="flex items-center gap-2 font-body text-white/35 text-sm hover:text-white transition-colors duration-300"
+              whileHover={{ x: 3, color: '#e63946' }}
+              transition={{ type: 'spring', stiffness: 400 }}
+              className="flex items-center gap-2 font-body text-white/35 text-sm"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
                 <path d="M2 3h10a1 1 0 011 1v6a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" />
                 <path d="M13 4L7 8.5 1 4" />
               </svg>
               pforzheim@the-fitness-store.net
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               href="tel:+4972318004071"
-              className="font-body text-white/35 text-sm hover:text-[#e63946] transition-colors duration-300"
+              whileHover={{ x: 3, color: '#e63946' }}
+              transition={{ type: 'spring', stiffness: 400 }}
+              className="font-body text-white/35 text-sm"
             >
               (07231) 800 40 71
-            </a>
+            </motion.a>
           </div>
-          <div className="flex items-center gap-3">
-            {['VISA', 'MC', 'PayPal', 'Klarna'].map((m) => (
-              <span key={m} className="font-body text-white/20 text-[10px] tracking-widest uppercase border border-white/10 px-2 py-0.5">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.8 }}
+            className="flex items-center gap-3"
+          >
+            {['VISA', 'MC', 'PayPal', 'Klarna'].map((m, i) => (
+              <motion.span
+                key={m}
+                initial={{ opacity: 0, y: 8 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.9 + i * 0.07, duration: 0.4 }}
+                className="font-body text-white/20 text-[10px] tracking-widest uppercase border border-white/10 px-2 py-0.5"
+              >
                 {m}
-              </span>
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -132,7 +201,11 @@ export default function Footer() {
             © 2024 The Fitness Store. Alle Rechte vorbehalten.
           </p>
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#e63946]" />
+            <motion.div
+              animate={{ scale: [1, 1.5, 1] }}
+              transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
+              className="w-1.5 h-1.5 rounded-full bg-[#e63946]"
+            />
             <span className="font-body text-white/20 text-xs tracking-widest">
               Made with passion for athletes
             </span>

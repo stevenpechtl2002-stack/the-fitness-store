@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useInView, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion'
 
 const products = [
   {
@@ -78,7 +78,7 @@ const products = [
 
 function TiltCard({ product, index }) {
   const cardRef = useRef(null)
-  const inView = useInView(cardRef, { once: true, margin: '-60px' })
+  const inView = useInView(cardRef, { once: true, margin: '-40px' })
 
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -108,12 +108,18 @@ function TiltCard({ product, index }) {
     }, 400)
   }
 
+  const row = Math.floor(index / 3)
+
   return (
     <motion.div
       ref={cardRef}
-      initial={{ opacity: 0, y: 70 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.75, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: 90, clipPath: 'inset(0 0 100% 0)' }}
+      animate={inView ? { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' } : {}}
+      transition={{
+        duration: 1.0,
+        delay: (index % 3) * 0.13 + row * 0.05,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       style={{ perspective: 1000 }}
     >
       <motion.div
@@ -126,23 +132,36 @@ function TiltCard({ product, index }) {
         <div className="relative overflow-hidden aspect-square">
           <motion.img
             style={{ filter: useTransform(brightness, b => `brightness(${b})`) }}
-            whileHover={{ scale: 1.06 }}
-            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.08 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             src={product.img}
             alt={product.name}
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-transparent" />
 
+          {/* Red shimmer on hover */}
+          <motion.div
+            initial={{ opacity: 0, x: '-100%' }}
+            whileHover={{ opacity: 1, x: '200%' }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-[#e63946]/15 to-transparent skew-x-12 pointer-events-none"
+          />
+
           {/* Badge */}
           {product.badge && (
-            <div className={`absolute top-3 left-3 px-2.5 py-1 text-[10px] font-body font-bold tracking-widest uppercase ${
-              product.badge === 'SALE' || product.badge === 'BESTSELLER'
-                ? 'bg-[#e63946] text-white'
-                : 'bg-white text-[#080808]'
-            }`}>
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: (index % 3) * 0.13 + 0.5 }}
+              className={`absolute top-3 left-3 px-2.5 py-1 text-[10px] font-body font-bold tracking-widest uppercase ${
+                product.badge === 'SALE' || product.badge === 'BESTSELLER'
+                  ? 'bg-[#e63946] text-white'
+                  : 'bg-white text-[#080808]'
+              }`}
+            >
               {product.badge}
-            </div>
+            </motion.div>
           )}
 
           {/* Tag */}
@@ -164,9 +183,18 @@ function TiltCard({ product, index }) {
           <div className="flex items-center gap-2 mb-4">
             <div className="flex gap-0.5">
               {[...Array(5)].map((_, i) => (
-                <svg key={i} width="10" height="10" viewBox="0 0 10 10" fill={i < product.rating ? '#e63946' : 'none'} stroke={i < product.rating ? 'none' : '#ffffff30'} strokeWidth="1">
+                <motion.svg
+                  key={i}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={inView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.3, delay: (index % 3) * 0.13 + 0.6 + i * 0.05 }}
+                  width="10" height="10" viewBox="0 0 10 10"
+                  fill={i < product.rating ? '#e63946' : 'none'}
+                  stroke={i < product.rating ? 'none' : '#ffffff30'}
+                  strokeWidth="1"
+                >
                   <polygon points="5,1 6.18,3.82 9.27,4.09 7,6.1 7.64,9.15 5,7.5 2.36,9.15 3,6.1 0.73,4.09 3.82,3.82" />
-                </svg>
+                </motion.svg>
               ))}
             </div>
             <span className="font-body text-white/30 text-[10px] tracking-widest">
@@ -177,9 +205,14 @@ function TiltCard({ product, index }) {
           {/* Price + CTA */}
           <div className="flex items-center justify-between">
             <div className="flex items-baseline gap-2">
-              <span className="font-display text-white text-2xl tracking-wider">
+              <motion.span
+                initial={{ opacity: 0, y: 10 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: (index % 3) * 0.13 + 0.7 }}
+                className="font-display text-white text-2xl tracking-wider"
+              >
                 {product.price}€
-              </span>
+              </motion.span>
               {product.oldPrice && (
                 <span className="font-body text-white/30 text-sm line-through">
                   {product.oldPrice}€
@@ -187,9 +220,10 @@ function TiltCard({ product, index }) {
               )}
             </div>
             <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.15, rotate: 90 }}
+              whileTap={{ scale: 0.88 }}
               onClick={handleAdd}
+              transition={{ type: 'spring', stiffness: 400, damping: 15 }}
               className={`w-10 h-10 flex items-center justify-center transition-all duration-300 ${
                 added ? 'bg-white' : 'bg-[#e63946] hover:bg-white'
               }`}
@@ -211,7 +245,7 @@ function TiltCard({ product, index }) {
         <motion.div
           initial={{ scaleX: 0 }}
           whileHover={{ scaleX: 1 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#e63946] origin-left"
         />
       </motion.div>
@@ -220,30 +254,41 @@ function TiltCard({ product, index }) {
 }
 
 export default function Bestsellers() {
+  const sectionRef = useRef(null)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
+  const headerY = useSpring(useTransform(scrollYProgress, [0, 1], ['-4%', '4%']), { stiffness: 60, damping: 20 })
+
   return (
-    <section id="bestseller" className="py-24 lg:py-36 bg-[#050505]">
+    <section id="bestseller" ref={sectionRef} className="py-24 lg:py-36 bg-[#050505] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div ref={ref} className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
-          <div>
+          <motion.div style={{ y: headerY }}>
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               className="flex items-center gap-3 mb-4"
             >
-              <div className="w-8 h-px bg-[#e63946]" />
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={inView ? { scaleX: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                style={{ originX: 0 }}
+                className="w-8 h-px bg-[#e63946]"
+              />
               <span className="font-body text-[#e63946] text-xs font-semibold tracking-[0.3em] uppercase">
                 Bestseller
               </span>
             </motion.div>
             <div className="overflow-hidden">
               <motion.h2
-                initial={{ y: '110%' }}
-                animate={inView ? { y: '0%' } : {}}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ y: '115%', skewY: 3 }}
+                animate={inView ? { y: '0%', skewY: 0 } : {}}
+                transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="font-display text-white text-6xl lg:text-8xl tracking-wider leading-none"
               >
                 TOP
@@ -251,30 +296,34 @@ export default function Bestsellers() {
             </div>
             <div className="overflow-hidden">
               <motion.h2
-                initial={{ y: '110%' }}
-                animate={inView ? { y: '0%' } : {}}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ y: '115%', skewY: 3 }}
+                animate={inView ? { y: '0%', skewY: 0 } : {}}
+                transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className="font-display text-[#e63946] text-6xl lg:text-8xl tracking-wider leading-none"
               >
                 SELLER
               </motion.h2>
             </div>
-          </div>
+          </motion.div>
 
           <motion.a
             href="https://www.fitnessstore-24.de"
             target="_blank"
             rel="noopener noreferrer"
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.4 }}
-            whileHover={{ scale: 1.04 }}
-            className="hidden lg:flex items-center gap-3 border border-white/20 hover:border-[#e63946] px-6 py-3 font-body text-sm text-white/60 hover:text-white tracking-widest uppercase transition-all duration-300 self-end"
+            initial={{ opacity: 0, x: 30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.45, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ scale: 1.04, borderColor: '#e63946', color: '#ffffff' }}
+            className="hidden lg:flex items-center gap-3 border border-white/20 px-6 py-3 font-body text-sm text-white/60 tracking-widest uppercase transition-all duration-300 self-end"
           >
             Alle Produkte
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <motion.svg
+              width="16" height="16" viewBox="0 0 16 16" fill="none"
+              whileHover={{ x: 4 }}
+              transition={{ type: 'spring', stiffness: 400 }}
+            >
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            </motion.svg>
           </motion.a>
         </div>
 

@@ -1,125 +1,144 @@
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-}
+const words = [
+  { text: 'TRAIN',     red: false },
+  { text: 'HARDER.',   red: true  },
+  { text: 'LIVE',      red: false },
+  { text: 'STRONGER.', red: true  },
+]
 
-const lineVariants = {
-  hidden: { y: '110%', opacity: 0 },
-  visible: {
-    y: '0%',
-    opacity: 1,
-    transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] },
-  },
-}
-
-const fadeUp = {
-  hidden: { y: 30, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-  },
-}
+const stats = [
+  { val: '50K+', label: 'Kunden' },
+  { val: '4.9★', label: 'Google Rating' },
+  { val: '200+', label: 'Produkte' },
+]
 
 export default function Hero() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+
+  const rawImageY  = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const rawTextY   = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
+  const rawOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0])
+  const rawScale   = useTransform(scrollYProgress, [0, 1], [1, 1.12])
+
+  const imageY  = useSpring(rawImageY,  { stiffness: 60, damping: 20 })
+  const textY   = useSpring(rawTextY,   { stiffness: 80, damping: 25 })
+  const imgScale = useSpring(rawScale,  { stiffness: 60, damping: 20 })
 
   return (
     <section
       id="hero"
       ref={ref}
       className="relative w-full h-screen min-h-[600px] overflow-hidden flex flex-col justify-between"
+      style={{ cursor: 'none' }}
     >
-      {/* Background Image with Parallax */}
+      {/* Background */}
       <motion.div
-        style={{ y: imageY }}
-        className="absolute inset-0 scale-110"
+        style={{ y: imageY, scale: imgScale }}
+        className="absolute inset-0"
       >
         <img
           src="/hero-training.jpg"
-          alt="The Fitness Store"
+          alt="Athlete training"
           className="w-full h-full object-cover object-[center_30%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/75 via-[#080808]/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080808]/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/90 via-[#080808]/55 to-[#080808]/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080808]/80 via-transparent to-transparent" />
+        {/* Grain overlay */}
+        <div className="absolute inset-0 opacity-[0.04]"
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")` }}
+        />
       </motion.div>
 
-      {/* Content — fills viewport top to bottom */}
+      {/* Animated red line — left edge */}
       <motion.div
-        style={{ opacity }}
-        className="relative z-10 flex flex-col justify-between h-full max-w-7xl mx-auto px-6 lg:px-12 w-full py-28 lg:py-32"
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ duration: 1.4, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        style={{ originY: 0 }}
+        className="absolute left-6 lg:left-12 top-24 bottom-24 w-px bg-gradient-to-b from-transparent via-[#e63946]/60 to-transparent"
+      />
+
+      {/* Content */}
+      <motion.div
+        style={{ y: textY, opacity: rawOpacity }}
+        className="relative z-10 flex flex-col justify-between h-full max-w-7xl mx-auto px-10 lg:px-16 w-full py-28 lg:py-32"
       >
-        {/* Top: eyebrow + headline */}
+        {/* Top */}
         <div>
           {/* Eyebrow */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex items-center gap-3 mb-5"
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center gap-3 mb-7"
           >
-            <div className="w-8 h-px bg-[#e63946]" />
-            <span className="font-body text-[#e63946] text-xs font-semibold tracking-[0.3em] uppercase">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              style={{ originX: 0 }}
+              className="w-10 h-px bg-[#e63946]"
+            />
+            <motion.span
+              initial={{ opacity: 0, letterSpacing: '0.5em' }}
+              animate={{ opacity: 1, letterSpacing: '0.3em' }}
+              transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="font-body text-[#e63946] text-xs font-semibold tracking-[0.3em] uppercase"
+            >
               Premium Fitness Equipment · Pforzheim
-            </span>
+            </motion.span>
           </motion.div>
 
-          {/* Headline — clamped so it always fits */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {[
-              { text: 'TRAIN',    red: false },
-              { text: 'HARDER.', red: true  },
-              { text: 'LIVE',     red: false },
-              { text: 'STRONGER.', red: true },
-            ].map(({ text, red }, i) => (
+          {/* Headline — each word slams in */}
+          <div>
+            {words.map(({ text, red }, i) => (
               <div key={i} className="overflow-hidden leading-none">
                 <motion.h1
-                  variants={lineVariants}
-                  className={`font-display leading-[0.9] tracking-wider block ${
-                    red ? 'text-[#e63946]' : 'text-white'
-                  }`}
+                  initial={{ y: '115%', skewY: 4 }}
+                  animate={{ y: '0%', skewY: 0 }}
+                  transition={{
+                    duration: 0.9,
+                    delay: 0.5 + i * 0.12,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className={`font-display leading-[0.88] tracking-wider block ${red ? 'text-[#e63946]' : 'text-white'}`}
                   style={{ fontSize: 'clamp(52px, 8.5vw, 130px)' }}
                 >
                   {text}
                 </motion.h1>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
 
-        {/* Bottom: subtext + CTA + stats */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Sub + CTA row */}
+        {/* Bottom */}
+        <div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-10">
             <motion.p
-              variants={fadeUp}
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 1.15, ease: [0.16, 1, 0.3, 1] }}
               className="font-body text-white/50 text-sm lg:text-base leading-relaxed max-w-xs tracking-wide"
             >
               Supplements, Equipment und mehr — alles aus einer Hand.
             </motion.p>
 
-            <motion.div variants={fadeUp} className="flex items-center gap-4 flex-shrink-0">
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 1.25, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-center gap-4 flex-shrink-0"
+            >
               <motion.a
                 href="https://www.fitnessstore-24.de"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(230,57,70,0.5)' }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-[#e63946] text-white font-body text-sm font-bold tracking-[0.2em] uppercase px-7 py-3.5 transition-all duration-300"
+                whileHover={{ scale: 1.06, boxShadow: '0 0 50px rgba(230,57,70,0.6)' }}
+                whileTap={{ scale: 0.94 }}
+                className="bg-[#e63946] text-white font-body text-sm font-bold tracking-[0.2em] uppercase px-7 py-3.5 transition-shadow duration-300"
               >
                 Shop Now
               </motion.a>
@@ -127,48 +146,51 @@ export default function Hero() {
                 href="https://www.fitnessstore-24.de"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ x: 6 }}
+                whileHover={{ x: 8 }}
+                transition={{ type: 'spring', stiffness: 400 }}
                 className="font-body text-white/60 text-sm font-medium tracking-widest uppercase flex items-center gap-2 hover:text-white transition-colors duration-300 whitespace-nowrap"
               >
                 Mehr erfahren
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <motion.svg
+                  width="16" height="16" viewBox="0 0 16 16" fill="none"
+                  whileHover={{ x: 3 }}
+                >
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                </motion.svg>
               </motion.a>
             </motion.div>
           </div>
 
           {/* Stats */}
           <motion.div
-            variants={fadeUp}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 1.35, ease: [0.16, 1, 0.3, 1] }}
             className="flex items-center gap-8 lg:gap-14 border-t border-white/8 pt-6"
           >
-            {[
-              { val: '50K+', label: 'Kunden' },
-              { val: '4.9★', label: 'Google Rating' },
-              { val: '200+', label: 'Produkte' },
-            ].map(({ val, label }) => (
-              <div key={label} className="flex flex-col">
-                <span className="font-display text-2xl lg:text-3xl text-white tracking-widest">
-                  {val}
-                </span>
-                <span className="font-body text-white/35 text-[10px] tracking-[0.2em] uppercase mt-0.5">
-                  {label}
-                </span>
-              </div>
+            {stats.map(({ val, label }, i) => (
+              <motion.div
+                key={label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 1.4 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col"
+              >
+                <span className="font-display text-2xl lg:text-3xl text-white tracking-widest">{val}</span>
+                <span className="font-body text-white/35 text-[10px] tracking-[0.2em] uppercase mt-0.5">{label}</span>
+              </motion.div>
             ))}
 
-            {/* Scroll indicator inline */}
             <div className="ml-auto hidden lg:flex flex-col items-center gap-1.5">
               <motion.div
-                animate={{ y: [0, 7, 0] }}
-                transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
-                className="w-px h-10 bg-gradient-to-b from-[#e63946] to-transparent"
+                animate={{ y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
+                className="w-px h-12 bg-gradient-to-b from-[#e63946] to-transparent"
               />
               <span className="font-body text-white/25 text-[9px] tracking-[0.3em] uppercase">Scroll</span>
             </div>
           </motion.div>
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   )
