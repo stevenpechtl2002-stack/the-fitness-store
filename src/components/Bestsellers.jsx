@@ -102,7 +102,10 @@ function TiltCard({ product, index }) {
   const [added, setAdded] = useState(false)
   const handleAdd = () => {
     setAdded(true)
-    setTimeout(() => setAdded(false), 1500)
+    setTimeout(() => {
+      window.open('https://www.fitnessstore-24.de', '_blank', 'noopener noreferrer')
+      setAdded(false)
+    }, 400)
   }
 
   return (
@@ -258,7 +261,10 @@ export default function Bestsellers() {
             </div>
           </div>
 
-          <motion.button
+          <motion.a
+            href="https://www.fitnessstore-24.de"
+            target="_blank"
+            rel="noopener noreferrer"
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ delay: 0.4 }}
@@ -269,7 +275,7 @@ export default function Bestsellers() {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </motion.button>
+          </motion.a>
         </div>
 
         {/* Grid */}

@@ -1,10 +1,14 @@
 import { motion } from 'framer-motion'
 
+const SHOP_URL = 'https://www.fitnessstore-24.de'
+
 const footerLinks = {
   Shop: ['Supplements', 'Equipment', 'Kleidung', 'Zubehör', 'Sale'],
   Service: ['Über uns', 'Versand', 'Rückgabe', 'FAQ', 'Kontakt'],
   Rechtliches: ['Impressum', 'Datenschutz', 'AGB', 'Cookie-Einstellungen'],
 }
+
+const shopCategories = new Set(['Supplements', 'Equipment', 'Kleidung', 'Zubehör', 'Sale'])
 
 export default function Footer() {
   return (
@@ -75,7 +79,9 @@ export default function Footer() {
                 {links.map((link) => (
                   <li key={link}>
                     <a
-                      href="#"
+                      href={shopCategories.has(link) ? SHOP_URL : '#'}
+                      target={shopCategories.has(link) ? '_blank' : undefined}
+                      rel={shopCategories.has(link) ? 'noopener noreferrer' : undefined}
                       className="font-body text-white/35 text-sm hover:text-white transition-colors duration-300 tracking-wide"
                     >
                       {link}

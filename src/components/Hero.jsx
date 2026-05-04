@@ -113,14 +113,20 @@ export default function Hero() {
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex items-center gap-4 flex-shrink-0">
-              <motion.button
+              <motion.a
+                href="https://www.fitnessstore-24.de"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(230,57,70,0.5)' }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-[#e63946] text-white font-body text-sm font-bold tracking-[0.2em] uppercase px-7 py-3.5 transition-all duration-300"
               >
                 Shop Now
-              </motion.button>
-              <motion.button
+              </motion.a>
+              <motion.a
+                href="https://www.fitnessstore-24.de"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ x: 6 }}
                 className="font-body text-white/60 text-sm font-medium tracking-widest uppercase flex items-center gap-2 hover:text-white transition-colors duration-300 whitespace-nowrap"
               >
@@ -128,7 +134,7 @@ export default function Hero() {
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-              </motion.button>
+              </motion.a>
             </motion.div>
           </div>
 

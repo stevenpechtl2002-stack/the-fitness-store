@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+const SHOP_URL = 'https://www.fitnessstore-24.de'
+
 const links = ['Shop', 'Kategorien', 'Bestseller', 'Über uns']
 
 export default function Navbar() {
@@ -13,7 +15,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const scrollTo = (id) => {
+  const scrollTo = (link) => {
+    if (link === 'Shop') {
+      window.open(SHOP_URL, '_blank', 'noopener noreferrer')
+      setMenuOpen(false)
+      return
+    }
+    const id = link.toLowerCase().replace('ü', 'u').replace(' ', '-')
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: 'smooth' })
     setMenuOpen(false)
@@ -50,7 +58,7 @@ export default function Navbar() {
             {links.map((link) => (
               <button
                 key={link}
-                onClick={() => scrollTo(link.toLowerCase().replace(' ', '-'))}
+                onClick={() => scrollTo(link)}
                 className="text-white/60 hover:text-white font-body text-sm font-medium tracking-widest uppercase transition-colors duration-300 relative group"
               >
                 {link}
@@ -61,13 +69,16 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <motion.button
+            <motion.a
+              href={SHOP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-[#e63946] text-white font-body text-sm font-semibold tracking-widest uppercase px-6 py-2.5 hover:bg-white hover:text-[#080808] transition-all duration-300"
             >
               Shop Now
-            </motion.button>
+            </motion.a>
           </div>
 
           {/* Mobile Hamburger */}
@@ -107,20 +118,23 @@ export default function Navbar() {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.08 + 0.1 }}
-                onClick={() => scrollTo(link.toLowerCase().replace(' ', '-'))}
+                onClick={() => scrollTo(link)}
                 className="font-display text-5xl text-white hover:text-[#e63946] tracking-widest transition-colors duration-300"
               >
                 {link}
               </motion.button>
             ))}
-            <motion.button
+            <motion.a
+              href={SHOP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
               className="mt-4 bg-[#e63946] text-white font-body text-sm font-semibold tracking-widest uppercase px-8 py-3"
             >
               Shop Now
-            </motion.button>
+            </motion.a>
           </motion.div>
         )}
       </AnimatePresence>

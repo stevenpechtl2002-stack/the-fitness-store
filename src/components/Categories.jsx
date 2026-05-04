@@ -47,6 +47,7 @@ function CategoryCard({ cat, index }) {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
       className="group relative overflow-hidden cursor-pointer"
+      onClick={() => window.open('https://www.fitnessstore-24.de', '_blank', 'noopener noreferrer')}
     >
       {/* Image */}
       <div className="relative overflow-hidden aspect-[3/4]">
