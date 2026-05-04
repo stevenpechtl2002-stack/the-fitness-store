@@ -43,9 +43,9 @@ export default function Hero() {
         className="absolute inset-0 scale-110"
       >
         <img
-          src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80&auto=format&fit=crop"
+          src="/img-01.jpeg"
           alt="Fitness"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-top"
         />
         {/* Overlays */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/80 to-[#080808]/30" />

@@ -37,9 +37,9 @@ export default function About() {
               className="relative"
             >
               <img
-                src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=900&q=80&auto=format&fit=crop"
+                src="/img-11.jpeg"
                 alt="The Fitness Store"
-                className="w-full h-[500px] lg:h-[650px] object-cover object-center"
+                className="w-full h-[500px] lg:h-[650px] object-cover object-top"
               />
               {/* Red frame accent */}
               <div className="absolute -bottom-4 -right-4 w-2/3 h-2/3 border border-[#e63946]/30 pointer-events-none" />
