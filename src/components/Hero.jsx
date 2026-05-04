@@ -46,8 +46,8 @@ export default function Hero() {
           alt="The Fitness Store"
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#3d3d3d]/75 via-[#3d3d3d]/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#3d3d3d]/60 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/75 via-[#080808]/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080808]/60 via-transparent to-transparent" />
       </motion.div>
 
       {/* Content — fills viewport top to bottom */}

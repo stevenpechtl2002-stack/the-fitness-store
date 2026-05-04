@@ -58,7 +58,7 @@ function CategoryCard({ cat, index }) {
           alt={cat.title}
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#3d3d3d] via-[#3d3d3d]/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/20 to-transparent" />
 
         {/* Red accent top border */}
         {cat.accent && (

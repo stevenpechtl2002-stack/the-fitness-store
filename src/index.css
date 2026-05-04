@@ -11,11 +11,11 @@
 
   html {
     scroll-behavior: smooth;
-    background-color: #3d3d3d;
+    background-color: #080808;
   }
 
   body {
-    background-color: #3d3d3d;
+    background-color: #080808;
     color: #ffffff;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
@@ -33,7 +33,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #3d3d3d;
+    background: #080808;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -58,11 +58,11 @@
   }
 
   .card-gradient {
-    background: linear-gradient(145deg, #404040 0%, #484848 100%);
+    background: linear-gradient(145deg, #0d0d0d 0%, #111111 100%);
   }
 
   .hero-gradient {
-    background: linear-gradient(to right, #3d3d3d 30%, transparent 70%);
+    background: linear-gradient(to right, #080808 30%, transparent 70%);
   }
 
   .red-glow {

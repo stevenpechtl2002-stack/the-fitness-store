@@ -11,7 +11,7 @@ export default function Reviews() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="bewertungen" className="py-24 lg:py-36 bg-[#303030] overflow-hidden">
+    <section id="bewertungen" className="py-24 lg:py-36 bg-[#050505] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
         {/* Header */}

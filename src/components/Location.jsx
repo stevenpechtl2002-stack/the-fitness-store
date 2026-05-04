@@ -20,7 +20,7 @@ export default function Location() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="standort" className="py-24 lg:py-36 bg-[#303030]">
+    <section id="standort" className="py-24 lg:py-36 bg-[#050505]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
         {/* Header */}
@@ -183,7 +183,7 @@ export default function Location() {
             <div className="absolute top-0 left-0 right-0 h-0.5 bg-[#e63946] z-10" />
 
             {/* Map label */}
-            <div className="absolute bottom-4 left-4 z-10 bg-[#3d3d3d]/90 backdrop-blur-sm border border-white/10 px-3 py-2 flex items-center gap-2">
+            <div className="absolute bottom-4 left-4 z-10 bg-[#080808]/90 backdrop-blur-sm border border-white/10 px-3 py-2 flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-[#e63946] animate-pulse" />
               <span className="font-body text-white text-xs tracking-widest uppercase">
                 Bleichstraße 12 · Pforzheim
