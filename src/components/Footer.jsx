@@ -16,7 +16,7 @@ export default function Footer() {
           <div className="col-span-2 lg:col-span-2">
             {/* Logo */}
             <div className="mb-6">
-              <img src="/logo.jpg" alt="The Fitness Store" className="h-14 w-auto object-contain" />
+              <img src="/logo.png" alt="The Fitness Store" className="h-14 w-auto object-contain" />
             </div>
 
             <p className="font-body text-white/35 text-sm leading-relaxed mb-5 max-w-xs">

@@ -39,7 +39,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.02 }}
           >
             <img
-              src="/logo.jpg"
+              src="/logo.png"
               alt="The Fitness Store"
               className="h-10 lg:h-12 w-auto object-contain"
             />
