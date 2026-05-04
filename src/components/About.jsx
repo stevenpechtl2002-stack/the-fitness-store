@@ -50,7 +50,7 @@ export default function About() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ delay: 0.6, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute -bottom-6 -left-6 bg-[#1a1a1a] border border-white/10 p-6 lg:p-8"
+                className="absolute -bottom-6 -left-6 bg-[#3d3d3d] border border-white/10 p-6 lg:p-8"
               >
                 <div className="font-display text-5xl lg:text-6xl text-[#e63946] tracking-wider">
                   2018

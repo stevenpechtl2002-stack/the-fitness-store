@@ -81,7 +81,7 @@ export const TestimonialsColumn = (props: {
             {props.testimonials.map(({ text, image, name, role }, i) => (
               <div
                 key={i}
-                className="p-6 rounded-none border border-white/8 bg-[#222222] max-w-xs w-full relative group hover:border-[#e63946]/30 transition-all duration-500"
+                className="p-6 rounded-none border border-white/8 bg-[#484848] max-w-xs w-full relative group hover:border-[#e63946]/30 transition-all duration-500"
               >
                 {/* Quote accent */}
                 <div className="absolute top-3 right-4 font-display text-4xl text-[#e63946]/10 leading-none group-hover:text-[#e63946]/20 transition-colors duration-300">

@@ -132,7 +132,7 @@ function TiltCard({ product, index }) {
             alt={product.name}
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#222222] via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#484848] via-transparent to-transparent" />
 
           {/* Badge */}
           {product.badge && (
@@ -224,7 +224,7 @@ export default function Bestsellers() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="bestseller" className="py-24 lg:py-36 bg-[#141414]">
+    <section id="bestseller" className="py-24 lg:py-36 bg-[#303030]">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div ref={ref} className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6">
