@@ -173,7 +173,7 @@ export default function Location() {
                 src="https://maps.google.com/maps?q=Bleichstraße+12,+75173+Pforzheim,+Germany&output=embed&z=17"
                 width="100%"
                 height="100%"
-                style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) brightness(0.85) contrast(0.9)' }}
+                style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
