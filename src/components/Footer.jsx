@@ -12,7 +12,7 @@ const shopCategories = new Set(['Supplements', 'Equipment', 'Kleidung', 'Zubehö
 
 export default function Footer() {
   return (
-    <footer className="bg-[#050505] border-t border-white/5">
+    <footer className="bg-[#141414] border-t border-white/5">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-24">
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
@@ -126,7 +126,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/5 bg-[#030303]">
+      <div className="border-t border-white/5 bg-[#111111]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="font-body text-white/20 text-xs tracking-widest">
             © 2024 The Fitness Store. Alle Rechte vorbehalten.
