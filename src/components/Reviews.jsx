@@ -121,8 +121,19 @@ export default function Reviews() {
             </div>
             <Stars />
             <p className="font-body text-white/40 text-xs tracking-widest uppercase">
-              Basierend auf 12.400+ Bewertungen
+              Google Bewertungen · Pforzheim
             </p>
+            <a
+              href="https://www.google.com/maps/place/The+Fitness+Store+Pforzheim"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-body text-[#e63946]/70 hover:text-[#e63946] text-[11px] tracking-widest uppercase transition-colors duration-300 flex items-center gap-1.5 mt-1"
+            >
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
+                <path d="M5 .5C2.52.5.5 2.52.5 5S2.52 9.5 5 9.5 9.5 7.48 9.5 5 7.48.5 5 .5zm.5 6.79L3.21 5 4.5 3.71l1.29 1.3L7.5 3.3l.7.7-2.7 3.29z"/>
+              </svg>
+              Auf Google ansehen
+            </a>
           </motion.div>
         </div>
 

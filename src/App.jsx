@@ -6,6 +6,7 @@ import Bestsellers from './components/Bestsellers'
 import About from './components/About'
 import Reviews from './components/Reviews'
 import Newsletter from './components/Newsletter'
+import Location from './components/Location'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
       <About />
       <Reviews />
       <Newsletter />
+      <Location />
       <Footer />
     </div>
   )

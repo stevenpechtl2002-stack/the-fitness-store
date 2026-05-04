@@ -19,9 +19,14 @@ export default function Footer() {
               <img src="/logo.jpg" alt="The Fitness Store" className="h-14 w-auto object-contain" />
             </div>
 
-            <p className="font-body text-white/35 text-sm leading-relaxed mb-8 max-w-xs">
+            <p className="font-body text-white/35 text-sm leading-relaxed mb-5 max-w-xs">
               Premium Fitness Equipment, Supplements und Kleidung. Dein Partner für maximale Performance seit 2018.
             </p>
+            <div className="space-y-2 mb-8">
+              <p className="font-body text-white/25 text-xs tracking-wide">Bleichstraße 12 · 75173 Pforzheim</p>
+              <a href="tel:+4972318004071" className="block font-body text-white/25 hover:text-[#e63946] text-xs tracking-wide transition-colors duration-300">(07231) 800 40 71</a>
+              <a href="mailto:pforzheim@the-fitness-store.net" className="block font-body text-white/25 hover:text-[#e63946] text-xs tracking-wide transition-colors duration-300">pforzheim@the-fitness-store.net</a>
+            </div>
 
             {/* Social Links */}
             <div className="flex items-center gap-3">
@@ -88,22 +93,20 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-6">
             <a
-              href="mailto:info@thefitnessstore.de"
+              href="mailto:pforzheim@the-fitness-store.net"
               className="flex items-center gap-2 font-body text-white/35 text-sm hover:text-white transition-colors duration-300"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.2">
                 <path d="M2 3h10a1 1 0 011 1v6a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" />
                 <path d="M13 4L7 8.5 1 4" />
               </svg>
-              info@thefitnessstore.de
+              pforzheim@the-fitness-store.net
             </a>
             <a
-              href="https://instagram.com/thefitnessstore"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="tel:+4972318004071"
               className="font-body text-white/35 text-sm hover:text-[#e63946] transition-colors duration-300"
             >
-              @thefitnessstore
+              (07231) 800 40 71
             </a>
           </div>
           <div className="flex items-center gap-3">
