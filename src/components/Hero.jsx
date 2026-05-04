@@ -42,9 +42,9 @@ export default function Hero() {
         className="absolute inset-0 scale-110"
       >
         <img
-          src="/img-01.jpeg"
+          src="/hero-training.jpg"
           alt="The Fitness Store"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-[center_30%]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/75 via-[#080808]/30 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080808]/60 via-transparent to-transparent" />
